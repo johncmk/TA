@@ -21,7 +21,7 @@ const char *strZero = "0";
 /**
  * Prepend 0 or 1 to the binary number
  */
-char* bitPrepend(const char* head, const char* tail){
+char* bitPrepend(const char* head, const char* tail) {
 	char* merge = (char*)malloc(std::strlen(head) + std::strlen(tail)+1);
 	std::strcpy(merge,head);
 	std::strcat(merge,tail);
@@ -31,14 +31,14 @@ char* bitPrepend(const char* head, const char* tail){
 /**
  * Add 0 in front of binary until the length becomes 8
  */
-char* lenEight(char* binary){
+char* lenEight(char* binary) { 
 	return (std::strlen(binary) != lengthBinary)? lenEight(bitPrepend(strZero,binary)) : binary;
 }
 
 /**
  * convert from decimal to binary
  */
-char* toBinary(int num, char* binary = ""){
+char* toBinary(int num, char* binary = "") {
 	int div = num/2;
 	if (div == 0) 
 		return bitPrepend(strOne,binary);
@@ -50,7 +50,7 @@ char* toBinary(int num, char* binary = ""){
 /**
  * convert the two's complement binary number to negation for negative decimal
  */
-char* negation(char* binary, int i = 0){
+char* negation(char* binary, int i = 0) {
 	if(i == lengthBinary)
 		return binary;
 	if(*(binary+i) == zero){
@@ -65,23 +65,23 @@ char* negation(char* binary, int i = 0){
  * OR Truth Table for summation of two numbers of twos complement binary
  * each result updates (carry,remain bit)
  */
-const char* truthOR(char top, char bottom, int &carryout){
-	if (top == zero && bottom == zero){//CASE 00 = 0,0
-		if(carryout == 1){//CASE 001 = 1,0
+const char* truthOR(char top, char bottom, int &carryout) {
+	if (top == zero && bottom == zero) {//CASE 00 = 0,0
+		if(carryout == 1) {//CASE 001 = 1,0
 			carryout = 0;
 			return strOne;
 		}
 		return strZero;
 	}
-	if(top == one && bottom == one){//CASE 11 = 1,0
+	if(top == one && bottom == one) {//CASE 11 = 1,0
 		if(carryout == 1)
 			return strOne;//CASE 111 = 1,1
-		if(carryout == 0){
+		if(carryout == 0) {
 			carryout++;
 			return strZero;
 		}
 	}
-	if((top == zero && bottom == one)||(top = one && bottom == zero)){//CASE 01 OR 10 = 0,1
+	if((top == zero && bottom == one)||(top = one && bottom == zero)) {//CASE 01 OR 10 = 0,1
 		if(carryout == 1)
 			return strZero;//CASE 011 OR 101 = 1,0
 		return strOne;
@@ -191,9 +191,10 @@ void outputSummation(char *&top, char *&bottom, char *&sum){
  * output message if overflow else output number
  */
 void outputOverflow(char*top,char*bottom,char*sum){
-	if(overflow(top,bottom,sum)){
+	if(overflow(top,bottom,sum)) {
 		std::cout<<"\n---There is an overflow between two binary numbers---\n";
-		return;}
+		return;
+	}
 	std::cout<<std::endl<<checkNegative(toDec(top))<< " + "<<checkNegative(toDec(bottom))<<" = "<<toDec(sum)<<std::endl;
 }
 
@@ -211,19 +212,19 @@ void askExit(char &exit){
  */
 void twosComplementBinarryAddiion(int num1 = 0, int num2 = 0,bool flag = true,char exit = NULL,char *top = "",char *bottom = "",char *sum = ""){
 	std::cout<<"**)Enter number any integer from -128 to 127\n\n";
-	do{
+	do {
 		inputVar(num1,num2);
 		setVar(num1,num2,top,bottom,sum);
 		outputSummation(top,bottom,sum);
 		outputOverflow(top,bottom,sum);
 		askExit(exit);
-	}while(exit == 'c' || exit == 'C');
+	} while(exit == 'c' || exit == 'C');
 }
 
 /**
  * main function
  */
-int main(){
+int main() { 
 	twosComplementBinarryAddiion();
 	return 0;
 }
